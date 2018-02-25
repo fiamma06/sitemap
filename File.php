@@ -125,10 +125,10 @@ class File extends BaseFile
 
         if($this->enableCompression) {
             $output = $this->getFullFileName();
-            $outputgz = $output . '.gz';
-            file_put_contents("compress.zlib://$outputgz", file_get_contents($output));
+            $output_gz = $output . '.gz';
+            file_put_contents("compress.zlib://$output_gz", file_get_contents($output));
 
-            if(file_exists($outputgz) && file_exists($output)) {
+            if(file_exists($output_gz) && file_exists($output)) {
                 unlink($output);
             }
         }

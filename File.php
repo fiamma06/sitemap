@@ -123,7 +123,7 @@ class File extends BaseFile
     {
         if($this->enableCompression) {
             $output = $this->getFullFileName();
-            $output_gz = $output . '.gz';
+            $output_gz = $this->getFullFileName() . '.gz';
             file_put_contents("compress.zlib://$output_gz", file_get_contents($output));
 
             if(file_exists($output_gz) && file_exists($output)) {

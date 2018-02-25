@@ -119,10 +119,8 @@ class File extends BaseFile
         return $this->write($xmlCode);
     }
 
-    public function close()
+    public function afterClose()
     {
-        parent::close();
-
         if($this->enableCompression) {
             $output = $this->getFullFileName();
             $output_gz = $output . '.gz';
@@ -132,7 +130,5 @@ class File extends BaseFile
                 unlink($output);
             }
         }
-
-        return true;
     }
 }

@@ -181,6 +181,7 @@ abstract class BaseFile extends BaseObject
             if ($fileSize > self::MAX_FILE_SIZE) {
                 throw new Exception('File "'.$this->getFullFileName().'" has exceed the size limit of "'.self::MAX_FILE_SIZE.'": actual file size: "'.$fileSize.'".');
             }
+            $this->afterClose();
         }
         return true;
     }
@@ -218,5 +219,10 @@ abstract class BaseFile extends BaseObject
     protected function beforeClose()
     {
         // blank
+    }
+
+    protected function afterClose()
+    {
+
     }
 }

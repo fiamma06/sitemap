@@ -118,4 +118,16 @@ class File extends BaseFile
         $xmlCode .= '</url>';
         return $this->write($xmlCode);
     }
+
+    public function close()
+    {
+        parent::close();
+
+        if($this->enableCompression) {
+            $output = $this->getFullFileName();
+            file_put_contents("compress.zlib://$output.gz", file_get_contents($output));
+        }
+
+        return true;
+    }
 }

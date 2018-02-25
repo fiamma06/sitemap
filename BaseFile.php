@@ -28,7 +28,7 @@ use yii\web\UrlManager;
  */
 abstract class BaseFile extends BaseObject
 {
-    const MAX_ENTRIES_COUNT = 40000; // max XML entries count.
+    const MAX_ENTRIES_COUNT = 50000; // max XML entries count.
     const MAX_FILE_SIZE = 10485760; // max allowed file size in bytes = 10 MB
 
     /**
@@ -58,6 +58,10 @@ abstract class BaseFile extends BaseObject
      */
     private $_urlManager = 'urlManager';
 
+    /**
+     * @var bool
+     */
+    public $enableCompression = false;
 
     /**
      * Destructor.

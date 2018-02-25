@@ -133,7 +133,8 @@ class IndexFile extends BaseFile
         $findOptions = [
             'only' => [
                 '*.xml',
-                '*.gzip'
+                '*.gzip',
+                '*.gz'
             ],
         ];
         $files = FileHelper::findFiles($path, $findOptions);

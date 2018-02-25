@@ -156,7 +156,9 @@ abstract class BaseFile extends BaseObject
     {
         if ($this->_fileHandler === null) {
             $this->resolvePath(dirname($this->getFullFileName()));
-            $this->_fileHandler = fopen($this->getFullFileName(), 'w+');
+            $this->_fileHandler = $this->enableCompression
+                ? gzopen($this->getFullFileName(), 'w')
+                : fopen($this->getFullFileName(), 'w+');
             if ($this->_fileHandler === false) {
                 throw new Exception('Unable to create/open file "' . $this->getFullFileName() . '".');
             }
@@ -174,7 +176,7 @@ abstract class BaseFile extends BaseObject
     {
         if ($this->_fileHandler) {
             $this->beforeClose();
-            fclose($this->_fileHandler);
+            $this->enableCompression ? gzclose($this->_fileHandler) : fclose($this->_fileHandler);
             $this->_fileHandler = null;
             $this->_entriesCount = 0;
             $fileSize = filesize($this->getFullFileName());
@@ -195,7 +197,7 @@ abstract class BaseFile extends BaseObject
     public function write($content)
     {
         $this->open();
-        $bytesWritten = fwrite($this->_fileHandler, $content);
+        $bytesWritten = $this->enableCompression ? gzwrite($this->_fileHandler, $content) : fwrite($this->_fileHandler, $content);
         if ($bytesWritten === false) {
             throw new Exception('Unable to write file "' . $this->getFullFileName() . '".');
         }
